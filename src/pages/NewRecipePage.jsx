@@ -108,7 +108,7 @@ if (imageFile) {
       ingredients: ingredients.split('\n').map(i => i.trim()).filter(Boolean),
       steps: steps.split('\n').map(s => s.trim()).filter(Boolean),
       image_url: uploadedImageUrl || null,
-      author: user.email,
+      author: user.user_metadata?.display_name || user.email,
       slug: generateSlug(title),
     })
 

@@ -47,7 +47,7 @@ function LoginPage() {
 
         {error && <p className="login-error">{error}</p>}
 
-        <button className="form-submit" style={{ width: '100%' }} onClick={handleLogin}>
+        <button className="form-submit" onClick={handleLogin}>
           Einloggen
         </button>
       </div>
