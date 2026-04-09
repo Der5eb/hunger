@@ -127,7 +127,7 @@ function EditRecipePage() {
         steps: steps.split('\n').map(s => s.trim()).filter(Boolean),
         ...(uploadedImageUrl && { image_url: uploadedImageUrl }),
       })
-      .eq('id', id)
+      .eq('slug', slug)
 
     if (error) {
       setError('Fehler beim Speichern.')
