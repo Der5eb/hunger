@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
+import { Camera, Images } from 'lucide-react'
 
 function EditRecipePage() {
   const { user } = useAuth()
@@ -20,6 +21,7 @@ function EditRecipePage() {
   const [imagePreview, setImagePreview] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const { slug } = useParams()
 
   useEffect(() => {
     if (!user) navigate('/login')
@@ -30,7 +32,7 @@ function EditRecipePage() {
       const { data } = await supabase
         .from('recipes')
         .select('*')
-        .eq('id', id)
+        .eq('slug', slug)
         .single()
 
       if (data) {
@@ -70,6 +72,16 @@ function EditRecipePage() {
     setNewTag('')
     setShowNewTag(false)
   }
+  
+  function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
 
   function handleImageChange(e) {
     const file = e.target.files[0]
@@ -120,7 +132,7 @@ function EditRecipePage() {
     if (error) {
       setError('Fehler beim Speichern.')
     } else {
-      navigate(`/rezept/${id}`)
+      navigate(`/rezept/${generateSlug(title)}`)
     }
     setLoading(false)
   }
@@ -181,11 +193,15 @@ function EditRecipePage() {
         <label>Bild</label>
         <div className="image-upload-buttons">
           <label className="upload-btn">
-            📷 Kamera
-            <input type="file" accept="image/*" capture="environment" onChange={handleImageChange} hidden />
+            <Camera size={20}/> Kamera
+            <input type="file" 
+              accept="image/*" 
+              capture="environment" 
+              onChange={handleImageChange} 
+              hidden />
           </label>
           <label className="upload-btn">
-            🖼 Galerie
+            <Images size={20}/> Galerie
             <input type="file" accept="image/*" onChange={handleImageChange} hidden />
           </label>
         </div>

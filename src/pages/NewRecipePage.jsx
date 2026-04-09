@@ -59,6 +59,15 @@ function handleImageChange(e) {
   setImagePreview(URL.createObjectURL(file))
 }
   
+  function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim()
+}
   
   if (!user) {
     navigate('/login')
@@ -100,6 +109,7 @@ if (imageFile) {
       steps: steps.split('\n').map(s => s.trim()).filter(Boolean),
       image_url: uploadedImageUrl || null,
       author: user.email,
+      slug: generateSlug(title),
     })
 
     if (error) {

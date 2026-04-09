@@ -3,7 +3,7 @@ import FavoriteButton from './FavoriteButton'
 
 function RecipeCard({ recipe }) {
   return (
-    <a href={`/rezept/${recipe.id}`} className="recipe-card-wrapper">
+    <a href={`/rezept/${recipe.slug}`} className="recipe-card-wrapper">
       <div className="recipe-card-favorite">
         <FavoriteButton recipeId={recipe.id} />
       </div>

@@ -15,6 +15,7 @@ function RecipeDetailPage() {
     const [loading, setLoading] = useState(true);
     const [deleteConfirm, setDeleteConfirm] = useState(false)
     const navigate = useNavigate()
+    const { slug } = useParams()
     
     async function handleDelete() {
   await supabase.from('recipes').delete().eq('id', recipe.id)
@@ -23,8 +24,7 @@ function RecipeDetailPage() {
 
     useEffect(() => {
         async function fetchRecipe() {
-            const { data, error } = await supabase.from("recipes").select("*").eq("id", id).single();
-
+            const { data, error } = await supabase .from('recipes') .select('*') .eq('slug', slug) .single()
             if (!error) setRecipe(data);
             setLoading(false);
         }
@@ -86,7 +86,7 @@ function RecipeDetailPage() {
                 </div>
                     {user && (
   <div className="detail-actions">
-    <a href={`/rezept/${recipe.id}/bearbeiten`} className="edit-btn btn--ghost">
+    <a href={`/rezept/${recipe.slug}/bearbeiten`} className="edit-btn btn--ghost">
       <Pencil size={20} /> Bearbeiten
     </a>
     {deleteConfirm ? (

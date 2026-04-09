@@ -18,9 +18,9 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/neu" element={<NewRecipePage />} />
-            <Route path="/rezept/:id" element={<RecipeDetailPage />} />
+            <Route path="/rezept/:slug" element={<RecipeDetailPage />} />
             <Route path="/favoriten" element={<FavoritesPage />} />
-            <Route path="/rezept/:id/bearbeiten" element={<EditRecipePage />} />
+            <Route path="/rezept/:slug/bearbeiten" element={<EditRecipePage />} />
           </Routes>
         </main>
       </div>
