@@ -585,6 +585,7 @@ edit-btn:hover {
 .detail-title {
   font-size: 2rem;
   font-weight: 700;
+  line-height: 1;
   color: white;
   margin-bottom: 0.5rem;
 }
