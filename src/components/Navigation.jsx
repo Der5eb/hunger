@@ -40,7 +40,7 @@ const links = [
       <nav className={`sidebar ${collapsed ? 'sidebar--collapsed' : ''}`}>
         <div className="sidebar-header">
           {!collapsed && <a href="/" className="sidebar-logo">
-  <img src="/public/Hunger.svg" alt="Hunger" height="28" />
+  <img src="/Hunger.svg" alt="Hunger" height="28" />
 </a>}
             <button className="sidebar-toggle" onClick={toggleCollapsed}>
                 {collapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}
