@@ -1,3 +1,8 @@
+
+if (window.location.hash.includes('type=recovery')) {
+  window.location.replace('/passwort-setzen' + window.location.hash)
+}
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
