@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
@@ -7,52 +7,32 @@ function SetPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [tokenValid, setTokenValid] = useState(false)
+  const [tokenValid ] = useState(false)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    async function verifyToken() {
-      const hash = window.location.hash
-      const params = new URLSearchParams(hash.substring(1))
-      const tokenHash = params.get('access_token')
-
-      if (tokenHash) {
-        const { error } = await supabase.auth.verifyOtp({
-          token_hash: tokenHash,
-          type: 'recovery'
-        })
-        if (error) {
-          setError('Link ungültig oder abgelaufen. Bitte neuen Link anfordern.')
-        } else {
-          setTokenValid(true)
-        }
-      }
-    }
-    verifyToken()
-  }, [])
 
   async function handleSubmit() {
-    if (password !== confirmPassword) {
-      setError('Passwörter stimmen nicht überein.')
-      return
-    }
-    if (password.length < 6) {
-      setError('Passwort muss mindestens 6 Zeichen lang sein.')
-      return
-    }
-
-    setLoading(true)
-    setError(null)
-
-    const { error } = await supabase.auth.updateUser({ password })
-
-    if (error) {
-      setError('Fehler beim Setzen des Passworts.')
-    } else {
-      navigate('/')
-    }
-    setLoading(false)
+  if (password !== confirmPassword) {
+    setError('Passwörter stimmen nicht überein.')
+    return
   }
+  if (password.length < 6) {
+    setError('Passwort muss mindestens 6 Zeichen lang sein.')
+    return
+  }
+
+  setLoading(true)
+  setError(null)
+
+  const { error } = await supabase.auth.updateUser({ password })
+
+  if (error) {
+    setError('Fehler beim Setzen des Passworts.')
+  } else {
+    navigate('/')
+  }
+  setLoading(false)
+}
 
   return (
     <div className="login-page">
