@@ -1,7 +1,4 @@
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-import { supabase } from './lib/supabase'
-
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import Navigation from './components/Navigation'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
@@ -11,22 +8,6 @@ import RecipeDetailPage from './pages/RecipeDetailPage'
 import FavoritesPage from './pages/FavoritesPage'
 import SetPasswordPage from './pages/SetPasswordPage'
 import './App.css'
-
-
-function AuthListener() {
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'PASSWORD_RECOVERY') {
-        setTimeout(() => navigate('/passwort-setzen'), 100)
-      }
-    })
-    return () => subscription.unsubscribe()
-  }, [navigate])
-  
-  return null
-}
 
 function App() {
   return (
