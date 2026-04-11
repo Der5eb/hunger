@@ -8,7 +8,7 @@ function SetPasswordPage() {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-
+ 
   async function handleSubmit() {
     if (password !== confirmPassword) {
       setError('Passwörter stimmen nicht überein.')
@@ -25,6 +25,7 @@ function SetPasswordPage() {
     const { error } = await supabase.auth.updateUser({ password })
 
     if (error) {
+      console.log('Supabase Fehler:', error)
       setError('Fehler beim Setzen des Passworts.')
     } else {
       navigate('/')
