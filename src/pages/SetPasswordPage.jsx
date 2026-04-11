@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
@@ -8,6 +8,15 @@ function SetPasswordPage() {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  
+  useEffect(() => {
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (!session) {
+      // Kein Token — zurück zum Login
+      navigate('/login')
+    }
+  })
+}, [navigate])
 
   async function handleSubmit() {
     if (password !== confirmPassword) {
