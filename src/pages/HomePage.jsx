@@ -6,13 +6,16 @@ function HomePage() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [activeTag, setActiveTag] = useState(null);
-
+  const [activeTags, setActiveTags] = useState([]);
   const allTags = [...new Set(recipes.flatMap((r) => r.tags ?? []))];
+
+  function toggleTag(tag) {
+    setActiveTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
+  }
 
   const filtered = recipes.filter((recipe) => {
     const matchesSearch = recipe.title.toLowerCase().includes(search.toLowerCase());
-    const matchesTag = activeTag ? recipe.tags?.includes(activeTag) : true;
+    const matchesTag = activeTags.length === 0 || activeTags.every((tag) => recipe.tags?.includes(tag));
     return matchesSearch && matchesTag;
   });
 
@@ -41,15 +44,15 @@ function HomePage() {
         />
         <div className="filter-tags">
           <button
-            className={`tag-option ${activeTag === null ? "tag-option--active" : ""}`}
-            onClick={() => setActiveTag(null)}>
+            className={`tag-option ${activeTags.length === 0 ? "tag-option--active" : ""}`}
+            onClick={() => setActiveTags([])}>
             Alle
           </button>
           {allTags.map((tag) => (
             <button
               key={tag}
-              className={`tag-option ${activeTag === tag ? "tag-option--active" : ""}`}
-              onClick={() => setActiveTag(tag === activeTag ? null : tag)}>
+              className={`tag-option ${activeTags.includes(tag) ? "tag-option--active" : ""}`}
+              onClick={() => toggleTag(tag)}>
               {tag}
             </button>
           ))}
@@ -57,19 +60,20 @@ function HomePage() {
       </div>
 
       <div className="recipe-grid">
-  {filtered.length === 0 ? (
-    <div className="empty-state">
-      {search || activeTag
-        ? <p>Keine Rezepte gefunden für "<strong>{search || activeTag}</strong>"</p>
-        : <p>Noch keine Rezepte vorhanden.</p>
-      }
-    </div>
-  ) : (
-    filtered.map(recipe => (
-      <RecipeCard key={recipe.id} recipe={recipe} />
-    ))
-  )}
-</div>
+        {filtered.length === 0 ? (
+          <div className="empty-state">
+            {search || activeTags ? (
+              <p>
+                Keine Rezepte gefunden für "<strong>{search || activeTags}</strong>"
+              </p>
+            ) : (
+              <p>Noch keine Rezepte vorhanden.</p>
+            )}
+          </div>
+        ) : (
+          filtered.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)
+        )}
+      </div>
     </div>
   );
 }
