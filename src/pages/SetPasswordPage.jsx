@@ -1,41 +1,57 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { supabase } from "../lib/supabase";
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 
 function SetPasswordPage() {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [tokenValid, setTokenValid] = useState(false)
+  const navigate = useNavigate()
 
-  async function handleSubmit() {
-    const hash = window.location.hash;
-    const params = new URLSearchParams(hash.substring(1));
-    const tokenHash = params.get("access_token");
+  useEffect(() => {
+    async function verifyToken() {
+      const hash = window.location.hash
+      const params = new URLSearchParams(hash.substring(1))
+      const tokenHash = params.get('access_token')
 
-    if (tokenHash) {
-      const { error: verifyError } = await supabase.auth.verifyOtp({
-        token_hash: tokenHash,
-        type: "recovery"
-      });
-      if (verifyError) {
-        console.log("Verify Fehler:", verifyError);
-        setError("Link ungültig oder abgelaufen.");
-        setLoading(false);
-        return;
+      if (tokenHash) {
+        const { error } = await supabase.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: 'recovery'
+        })
+        if (error) {
+          setError('Link ungültig oder abgelaufen. Bitte neuen Link anfordern.')
+        } else {
+          setTokenValid(true)
+        }
       }
     }
+    verifyToken()
+  }, [])
 
-    const { error } = await supabase.auth.updateUser({ password });
+  async function handleSubmit() {
+    if (password !== confirmPassword) {
+      setError('Passwörter stimmen nicht überein.')
+      return
+    }
+    if (password.length < 6) {
+      setError('Passwort muss mindestens 6 Zeichen lang sein.')
+      return
+    }
+
+    setLoading(true)
+    setError(null)
+
+    const { error } = await supabase.auth.updateUser({ password })
 
     if (error) {
-      console.log("Supabase Fehler:", error);
-      setError("Fehler beim Setzen des Passworts.");
+      setError('Fehler beim Setzen des Passworts.')
     } else {
-      navigate("/");
+      navigate('/')
     }
-    setLoading(false);
+    setLoading(false)
   }
 
   return (
@@ -49,7 +65,7 @@ function SetPasswordPage() {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             placeholder="Mindestens 6 Zeichen"
           />
         </div>
@@ -59,9 +75,9 @@ function SetPasswordPage() {
           <input
             type="password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={e => setConfirmPassword(e.target.value)}
             placeholder="Passwort wiederholen"
-            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+            onKeyDown={e => e.key === 'Enter' && handleSubmit()}
           />
         </div>
 
@@ -69,14 +85,15 @@ function SetPasswordPage() {
 
         <button
           className="form-submit"
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
           onClick={handleSubmit}
-          disabled={loading || !password}>
-          {loading ? "Speichert..." : "Passwort speichern"}
+          disabled={loading || !password || !tokenValid}
+        >
+          {loading ? 'Speichert...' : 'Passwort speichern'}
         </button>
       </div>
     </div>
-  );
+  )
 }
 
-export default SetPasswordPage;
+export default SetPasswordPage
