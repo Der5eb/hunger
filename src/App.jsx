@@ -19,12 +19,12 @@ function AuthListener() {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'PASSWORD_RECOVERY') {
-        navigate('/passwort-setzen')
+        setTimeout(() => navigate('/passwort-setzen'), 100)
       }
     })
     return () => subscription.unsubscribe()
   }, [navigate])
-
+  
   return null
 }
 
