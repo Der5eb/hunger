@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { supabase } from './lib/supabase'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from './context/AuthContext'
 import Navigation from "./components/Navigation";
 import HomePage from "./pages/HomePage";
@@ -12,28 +10,10 @@ import FavoritesPage from "./pages/FavoritesPage";
 import SetPasswordPage from "./pages/SetPasswordPage";
 import "./App.css";
 
-function AuthListener() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const {
-      data: { subscription }
-    } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_IN" && window.location.hash.includes("type=recovery")) {
-        navigate("/passwort-setzen");
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, [navigate]);
-
-  return null;
-}
-
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AuthListener />
         <div className="app-layout">
           <Navigation />
           <main className="app-main">

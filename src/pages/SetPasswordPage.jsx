@@ -24,7 +24,6 @@ function SetPasswordPage() {
   setError(null)
 
   const { error } = await supabase.auth.updateUser({ password })
-  console.log('Update Result:', error)
 
   if (error) {
     setError('Fehler beim Setzen des Passworts.')
