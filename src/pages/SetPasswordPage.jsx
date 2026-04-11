@@ -7,7 +7,6 @@ function SetPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [tokenValid ] = useState(false)
   const navigate = useNavigate()
 
 
@@ -68,7 +67,7 @@ function SetPasswordPage() {
           className="form-submit"
           style={{ width: '100%' }}
           onClick={handleSubmit}
-          disabled={loading || !password || !tokenValid}
+          disabled={loading || !password}
         >
           {loading ? 'Speichert...' : 'Passwort speichern'}
         </button>
