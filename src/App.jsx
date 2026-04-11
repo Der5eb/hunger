@@ -12,7 +12,6 @@ import './App.css'
 function App() {
   return (
     <BrowserRouter>
-      <AuthListener />
       <div className="app-layout">
         <Navigation />
         <main className="app-main">
