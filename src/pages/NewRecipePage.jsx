@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { Camera, Images, Check } from 'lucide-react'
+import imageCompression from 'browser-image-compression';
 
 function NewRecipePage() {
   const { user } = useAuth()
@@ -81,12 +82,20 @@ function handleImageChange(e) {
     let uploadedImageUrl = null
 
 if (imageFile) {
-  const fileExt = imageFile.name.split('.').pop()
-  const fileName = `${Date.now()}.${fileExt}`
+  const compressionOptions = {
+    maxSizeMB: 0.5,
+    maxWidthOrHeight: 1200,
+    fileType: 'image/webp',
+    useWebWorker: true,
+  }
+
+  const compressedFile = await imageCompression(imageFile, compressionOptions)
+
+  const fileName = `${Date.now()}.webp`  // immer .webp jetzt
 
   const { error: uploadError } = await supabase.storage
     .from('recipe-images')
-    .upload(fileName, imageFile)
+    .upload(fileName, compressedFile)
 
   if (uploadError) {
     setError('Fehler beim Bild-Upload.')
