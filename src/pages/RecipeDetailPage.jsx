@@ -7,6 +7,8 @@ import { useAuth } from '../context/AuthContext'
 import { Pencil } from 'lucide-react'
 import { Trash2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { Share2, Check } from 'lucide-react';
+import ShareButton from '../components/ShareButton';
 
 function RecipeDetailPage() {
     const { id } = useParams();
@@ -57,7 +59,11 @@ function RecipeDetailPage() {
                     <div className="detail-favorite">
                         <FavoriteButton recipeId={recipe.id} />
                     </div>
+                    <div className="detail-share">
+                        <ShareButton title={recipe.title} />
+                    </div>
                 </div>
+                
             )}
 
             <div className="detail-content">

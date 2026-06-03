@@ -521,9 +521,31 @@ h1, h2, h3, h4, h5, h6 {
   color: #ccc;
 }
 
+.share-btn{
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(15px);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  color: #1a1a1a;
+}
+
 .favorite-btn:hover {
   transform: scale(1.1);
   color: #e05555;
+}
+
+.share-btn:hover {
+  transform: scale(1.1);
+  color: black;
 }
 
 .favorite-btn--active {
@@ -579,6 +601,12 @@ edit-btn:hover {
 .detail-favorite {
   position: absolute;
   top: 1rem;
+  right: 1rem;
+}
+
+.detail-share{
+  position: absolute;
+  top: 4rem;
   right: 1rem;
 }
 
