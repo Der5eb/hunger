@@ -11,7 +11,7 @@ function RecipeCard({ recipe }) {
         <div className="recipe-card-image">
           {recipe.image_url
             ? <img src={recipe.image_url} alt={recipe.title} />
-            : <div className="recipe-card-placeholder">🍽️</div>
+            : <img src="/placeholder.webp" alt="Kein Foto vorhanden" />
           }
         </div>
         <div className="recipe-card-body">

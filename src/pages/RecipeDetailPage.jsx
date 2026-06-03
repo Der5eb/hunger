@@ -37,34 +37,35 @@ function RecipeDetailPage() {
     if (!recipe) return <p style={{ padding: "2rem" }}>Rezept nicht gefunden.</p>;
 
     return (
-        <div className="page-content">
-            <div className="detail-page">
-            {recipe.image_url && (
-                <div className="detail-hero">
-                    {recipe.image_url && <img src={recipe.image_url} alt={recipe.title} />}
-                    <div className="detail-hero-overlay">
-                            <h1 className="detail-title">{recipe.title}</h1>
-                        <div className="detail-meta">
-                            {recipe.duration && <span> <Clock size={18}/> {recipe.duration}</span>}
-                            {recipe.author && <span> <User size={18}/> {recipe.author}</span>}
-                        </div>
-                        {recipe.tags?.length > 0 && (
-                            <div className="recipe-card-tags">
-                                {recipe.tags.map((tag) => (
-                                    <span key={tag} className="recipe-tag">{tag}</span>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                    <div className="detail-favorite">
-                        <FavoriteButton recipeId={recipe.id} />
-                    </div>
-                    <div className="detail-share">
-                        <ShareButton title={recipe.title} />
-                    </div>
-                </div>
-                
-            )}
+  <div className="page-content">
+    <div className="detail-page">
+      <div className="detail-hero">
+        <img
+          src={recipe.image_url || '/placeholder.webp'}
+          alt={recipe.title}
+          onError={e => { e.target.src = '/placeholder.webp' }}
+        />
+        <div className="detail-hero-overlay">
+          <h1 className="detail-title">{recipe.title}</h1>
+          <div className="detail-meta">
+            {recipe.duration && <span> <Clock size={18}/> {recipe.duration}</span>}
+            {recipe.author && <span> <User size={18}/> {recipe.author}</span>}
+          </div>
+          {recipe.tags?.length > 0 && (
+            <div className="recipe-card-tags">
+              {recipe.tags.map((tag) => (
+                <span key={tag} className="recipe-tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="detail-favorite">
+          <FavoriteButton recipeId={recipe.id} />
+        </div>
+        <div className="detail-share">
+          <ShareButton title={recipe.title} />
+        </div>
+      </div>
 
             <div className="detail-content">
                 <div className="detail-body">
