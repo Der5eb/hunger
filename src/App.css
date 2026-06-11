@@ -180,7 +180,9 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   height: var(--bottomnav-height);
-  background: var(--gold);
+  background: rgba(235, 201, 97, 0.9); /* war: var(--gold) */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   z-index: 100;
   justify-content: space-around;
   align-items: center;
