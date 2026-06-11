@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
+import { createPortal } from 'react-dom'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Home, PlusCircle, Heart, LogIn, LogOut, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 
@@ -76,6 +77,7 @@ const links = [
       </nav>
 
       {/* Bottom Nav Mobile */}
+      {createPortal(
       <nav className="bottom-nav">
         {links.map(link => (<a
           
@@ -95,7 +97,9 @@ const links = [
               <LogIn size={20} /><span>Login</span>
             </a>
         }
-      </nav>
+      </nav>,
+        document.body
+        )}
     </>
   )
 }
