@@ -362,6 +362,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   height: 100%;
+  padding: 0.5rem;
 }
 
 .recipe-card:hover {
@@ -375,6 +376,7 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   background: var(--gold-light);
   flex-shrink: 0;
+  border-radius: 5px;
 }
 
 .recipe-card-image img {
@@ -393,7 +395,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .recipe-card-body {
-  padding: 1rem 1.25rem 1.25rem;
+  padding: 1rem 0 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -426,8 +428,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .recipe-card-favorite {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  top: 1.25rem;
+  right: 1.25rem;
   z-index: 10;
 }
 
@@ -575,10 +577,12 @@ edit-btn:hover {
    DETAIL PAGE
    ============================================ */
 .detail-hero {
-  width: 100%;
+  width: calc(100%-20px);
   height: 420px;
   overflow: hidden;
   position: relative;
+  margin: 10px;
+  border-radius: 8px;
 }
 
 .detail-hero img {
