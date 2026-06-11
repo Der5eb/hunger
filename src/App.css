@@ -184,12 +184,14 @@ h1, h2, h3, h4, h5, h6 {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   z-index: 100;
+  isolation: isolate;
   justify-content: space-around;
   align-items: center;
   padding: 0.4rem 0.5rem;
   margin:0.5rem;
   gap: 0.6rem;
   border-radius: 0.5rem;
+  will-change: transform;
 }
 
 .bottom-nav-link {
