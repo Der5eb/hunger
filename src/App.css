@@ -181,11 +181,10 @@ h1, h2, h3, h4, h5, h6 {
   right: 0.5rem;
   height: var(--bottomnav-height);
   background: rgba(234, 195, 78, 0.85); /* war: var(--gold) */
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
-  transform: perspective(1px) translateZ(0);
   z-index: 100;
   isolation: isolate;
   justify-content: space-around;
