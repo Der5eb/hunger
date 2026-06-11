@@ -183,6 +183,8 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(234, 195, 78, 0.85); /* war: var(--gold) */
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   z-index: 100;
   isolation: isolate;
   justify-content: space-around;
@@ -205,7 +207,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: inherit;
   background: none;
   border: none;
-  border-radius: 6px;
+  border-radius: 0.3rem;
   cursor: pointer;
   padding: 0.7rem 1rem 0.5rem 1rem;
   font-weight: 500;
