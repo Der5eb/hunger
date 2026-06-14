@@ -106,7 +106,7 @@ function RecipeDetailPage() {
                             style={{
                                 fontSize: '2rem',
                                 display: '-webkit-box',
-                                WebkitLineClamp: 2,
+                                WebkitLineClamp: 3,
                                 WebkitBoxOrient: 'vertical',
                                 overflow: 'hidden'
                             }}
