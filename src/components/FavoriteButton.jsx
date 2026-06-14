@@ -52,7 +52,7 @@ function FavoriteButton({ recipeId }) {
       disabled={loading}
       title={isFavorite ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'}
     >
-      <Heart size={22} fill={isFavorite ? '#e05555' : 'none'} color={isFavorite ? '#e05555' : '#ababab'}/>
+      <Heart size={22} fill={isFavorite ? '#e05555' : 'none'} color={isFavorite ? '#e05555' : '#777777'}/>
     </button>
   )
 }
