@@ -8,6 +8,24 @@ function HomePage() {
   const [search, setSearch] = useState("");
   const [activeTags, setActiveTags] = useState([]);
   const allTags = [...new Set(recipes.flatMap((r) => r.tags ?? []))];
+  const scrollKey = "homepage-scroll";
+
+useEffect(() => {
+  const container = document.querySelector(".app-main");
+  if (!container) return;
+  const onScroll = () => sessionStorage.setItem(scrollKey, container.scrollTop);
+  container.addEventListener("scroll", onScroll, { passive: true });
+  return () => container.removeEventListener("scroll", onScroll);
+}, []);
+
+useEffect(() => {
+  if (loading) return; // warten bis Rezepte da sind
+  const container = document.querySelector(".app-main");
+  const saved = sessionStorage.getItem(scrollKey);
+  if (container && saved) {
+    container.scrollTop = parseInt(saved, 10);
+  }
+}, [loading]); // feuert wenn loading → false
 
   function toggleTag(tag) {
     setActiveTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
