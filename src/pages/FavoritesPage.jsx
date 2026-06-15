@@ -9,6 +9,24 @@ function FavoritesPage() {
   const navigate = useNavigate()
   const [recipes, setRecipes] = useState([])
   const [loading, setLoading] = useState(true)
+  const scrollKey = "homepage-scroll";
+
+useEffect(() => {
+  const container = document.querySelector(".app-main");
+  if (!container) return;
+  const onScroll = () => sessionStorage.setItem(scrollKey, container.scrollTop);
+  container.addEventListener("scroll", onScroll, { passive: true });
+  return () => container.removeEventListener("scroll", onScroll);
+}, []);
+
+useEffect(() => {
+  if (loading) return; // warten bis Rezepte da sind
+  const container = document.querySelector(".app-main");
+  const saved = sessionStorage.getItem(scrollKey);
+  if (container && saved) {
+    container.scrollTop = parseInt(saved, 10);
+  }
+}, [loading]); // feuert wenn loading → false
 
   useEffect(() => {
     if (!user) {
