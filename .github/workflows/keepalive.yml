@@ -1,0 +1,15 @@
+name: Supabase Keepalive
+on:
+  schedule:
+    - cron: "0 6 * * *"   # täglich um 6 Uhr UTC
+  workflow_dispatch:       # zum manuellen Testen
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Datenbank anfragen
+        run: |
+          curl -fsS "${{ secrets.https://urmznnggzhautdzuabbl.supabase.co }}/rest/v1/recipes?select=*&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.sb_publishable_uMDZ8L-5shFAGiGDO66OFA_oJwS0MKk }}"
