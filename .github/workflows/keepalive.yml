@@ -10,6 +10,6 @@ jobs:
     steps:
       - name: Datenbank anfragen
         run: |
-          curl -fsS "${{ secrets.SUPABASE_URL }}/rest/v1/DEINE_TABELLE?select=*&limit=1" \
+          curl -fsS "${{ secrets.SUPABASE_URL }}/rest/v1/recipes?select=*&limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
